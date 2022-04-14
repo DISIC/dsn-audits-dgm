@@ -9,7 +9,7 @@ path = 'github.com/disic/frago'
 
 [outputs]
  home    = ["HTML","JSON"]
-
-[params]
+ 
+ [params]
   organisation = "Direction générale de la mondialisation"
   robots = "noindex, nofollow"
