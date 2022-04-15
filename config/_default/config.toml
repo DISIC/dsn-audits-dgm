@@ -7,9 +7,6 @@ title = 'Direction générale de la mondialisation'
 [[module.imports]]
 path = 'github.com/disic/frago'
 
-[outputs]
- home    = ["HTML","JSON"]
- 
  [params]
   organisation = "Direction générale de la mondialisation"
   robots = "noindex, nofollow"
