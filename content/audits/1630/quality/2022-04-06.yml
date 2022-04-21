@@ -1,31 +1,174 @@
 - pages:
-    - name: "Global au site"
+    - name: Global au site
       blocks:
         - name: Page
           errors:
-            - name: 
-              description: 
-              criterion: 
-              delivery: 
-              status: 
-        - name: 
+            - name: Landmarks
+              description: | 
+                Absence de `role="navigation"`, Présence de 2 attributs `role="banner"`, Absence de `role="main"`
+              criterion: 12.6
+              delivery: Majeur 
+            - name: Second moyen de navigation
+              description: |
+                Absence d'un second système de navigation (moteur de recherche, plan du site)
+              criterion: 12.1
+              delivery: Majeur 
+            - name: Liens d'évitement
+              description: |
+                Absence de liens d'évitement
+                [Voir comment faire sur Accede-web](https://www.accede-web.com/notices/html-et-css/navigation-au-clavier/mettre-en-place-un-lien-devitement/)
+              criterion: 12.7
+              delivery: Majeur 
+        - name: Entête de la page
           errors:
-            - name: 
+            - name: Pertinence des alternatives textuelles des images
+              description: |
+                Décrire le contenu de l'image "Études en France"  
+                Supprimer le terme "logo"
+              criterion: 1.3
+              delivery: Majeur 
+            - name: Intitulé de lien
+              description: |
+                Dans le bloc `<div class="fr-header__service">`, le lien de retour à l'accueil doit être plus explicite : "Accueil - Études en France"
+                
+                **Recommandation**  
+                Il y a 2 possibilités : soit vous implémentez les logos dans ce bloc, soit vous ajoutez un contenu caché reprenant le texte écrit sur les images. (utiliser la class `.sr-only` - voir sur https://www.ffoodd.fr/cache-cache-css/)
+              criterion: 6.2
+              delivery: Majeur
+        - name: Navigation
+          errors:
+            - name: Icônes CSS
               path:
-              description:
-              criterion: 
-              delivery: 
-              status: 
-            - name: 
-              description:
-                **Recommandation** :  
-              criterion: 
-              delivery: 
-              status:
+              description: |  
+                Le bouton "je me connecte" a une icône (pictogramme bonhomme) susceptible d'être restituée par les lecteurs d'écran.  
+                
+                **Recommandation** :
+                Passer l'icône dans un élément html et lui attribuer un attribut `aria-hidden="true"` 
+                Pour les icônes qui sont en `:before` ou `:after`, les placer dans un élément html et ajouter l'attribut `aria-hidden="true"`
+              criterion: 7.1
+              delivery: Majeur
+            - name: Intitulé du bouton
+              path:
+              description: | 
+                L'intitulé du bouton devrait être plus explicite : "Menu de navigation"
+              criterion: 7.1
+              delivery: Majeur
+        - name: Pied de la page
+          errors:
+            - name: Pertinence des alternatives textuelles des images
+              description: |
+                Le terme "logo" n'est pas utile à la compréhension des logos.  
+                Il faut décrire le contenu de l'image.  
+                
+                **Exemples** :  
+                "Logo de la Conférence des Directeurs des Écoles Françaises d'Ingénieurs" -> 
+                "cdefi - Conférence des Directeurs des Écoles Françaises d'Ingénieurs"  
+                "Logo Conférence des Présidents d'Université" -> "CPU - Conférence des Présidents d'Université"
+              criterion: 1.3
+              delivery: Majeur 
+    - name: Accueil (non connecté)
+      blocks:
+        - name: Page
+          errors:
+            - name: Code source généré
+              description: | 
+                Vérifier en priorité les points suivants et ne pas traiter les warning :  
+                - Balises, attributs et valeurs d’attributs respectent les règles d’écriture  
+                - Imbrication des balises conforme  
+                - Ouverture et fermeture balises conformes  
+                - Valeurs d’attributs avec ID uniques dans page  
+                - Présence d’attributs doublés sur un même élément  
 
-            - name:
-              description: 
-                **Recommandation** :  
-              criterion: 
-              delivery:
-              status:
+              criterion: 8.2
+              delivery: Majeur
+        - name: Contenu
+          errors:
+            - name: Images
+              description: | 
+                Les images de décoration de la page d'accueil peuvent être restituées par les lecteurs d'écran.  
+                
+                **Recommandation** : 
+                Effacer le contenu de l'attribut `alt` pour :  
+                  - Student-University
+                  - Etudiante
+              criterion: 1.2
+              delivery: Majeur
+            - name: Textes
+              description: | 
+                Présence d'éléments de présentation vides `<p>`, il faut les supprimer.
+              criterion: 8.9
+              delivery: Mineur
+            - name: Structure de l'information
+              description: | 
+                La hiérarchie des titres ne correspond pas au contenu de la page
+              criterion: 9.2
+              delivery: Majeur
+        - name: Navigation (desktop et mobile)
+          errors:
+            - name: Intitulés de lien
+              description: |  
+                L'attribut `title` ne reprend pas l'intitulé exact du lien.
+                
+                **Recommandation** :  
+                L'attribut `title` doit reprendre l'intitulé exact du lien avec des informations complémentaires permettant de comprendre le texte du lien.  
+              criterion: 6.1
+              delivery: Majeur
+            - name: Icônes 
+              description: |  
+                Les icônes CSS peuvent être restituées par les lecteurs d'écran.  
+
+                **Recommandation** :  
+                ajouter un attribut `aria-hidden="true"` sur `<i class="fa fa-pencil"></i>`.  
+                Pour celles qui sont en `:before` ou `:after`, le placer dans un élément html et ajouter l'attribut `aria-hidden="true"`
+              criterion: 6.1, 7.1
+              delivery: Majeur
+        - name: Modale "Je me connecte"
+          errors:
+            - name: Intitulés de lien
+              description: |  
+                Le lien "Je m'inscris" n'est pas explicite.    
+                Ajouter un attribut `title` avec l'intitulé suivant :  "Je m'inscris à la plate-forme Études en France"  
+                
+                L'attribut `title` du bouton "Fermer" n'est pas explicite.  
+                Modifier l'attribut `title` avec "Fermer la fenêtre modale"  
+
+                Ajouter un attribut `aria-hidden="true"` à l'élément `<span class="fr-fi-arrow-right-line fr-fi--lg"></span>` pour que l'icône ne soit pas restituée par les lecteurs d'écran       
+              criterion: 6.1, 7.1
+              delivery: Majeur
+            - name: Icônes 
+              description: |  
+                Les icônes CSS peuvent être restituées par les lecteurs d'écran.  
+
+                **Recommandation** :  
+                Ajouter un attribut aria-hidden="true" à l'icône (qui ne s'affiche pas) <i class="fa fa-pencil"></i> sur le lien "Je m'inscris"
+
+              criterion: 6.1
+              delivery: Majeur
+            - name: Usage d'attributs interdits 
+              description: |  
+                Présence d'attributs `align` pour la présentation `<div class="col-demo" align="center">`
+
+                **Recommandation** :  
+                Il faut les supprimer et réaliser la mise en forme via CSS  
+                [Voir cette page pour voir les attributs interdits](https://www.numerique.gouv.fr/publications/rgaa-accessibilite/methode-rgaa/glossaire/#presentation-de-l-information)
+              criterion: 10.1
+              delivery: Majeur
+            - name: Caractère obligatoire des champs
+              description: |  
+                Il faut indiquer textuellement le caractère obligatoire de remplir ces deux champs pour se connecter. 
+                Cette indication doit être dans l'ordre du code source avant les utilisations de cette indication (*)               
+              criterion: 11.10
+              delivery: Majeur
+            - name: Contrôle de saisie
+              description: |  
+                Indiquer le format attendu de l'identifiant (email ? par exemple)
+                  
+                **Attention** si les champs ne sont pas correctement remplis on tombe sur une page 403.  
+              criterion: 11.11
+              delivery: Majeur
+            - name: Remplissage automatique des champs
+              description: |  
+                Ajouter un attribut `autocomplete` sur chacun des champs avec la bonne valeur (ici, `username` et `current-password`)
+                [Voir les valeurs autorisées ici](https://www.numerique.gouv.fr/publications/rgaa-accessibilite/methode-rgaa/glossaire/#liste-des-valeurs-possibles-pour-l-attribut-autocomplete)
+              criterion: 11.13
+              delivery: Majeur
