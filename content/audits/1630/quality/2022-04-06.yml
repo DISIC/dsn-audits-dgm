@@ -4,25 +4,25 @@
         - name: Page
           errors:
             - name: Landmarks
-              description: | 
+              description: |  
                 Absence de `role="navigation"`, Présence de 2 attributs `role="banner"`, Absence de `role="main"`
               criterion: 12.6
-              delivery: Majeur 
+              delivery: Majeur
             - name: Second moyen de navigation
-              description: |
+              description: |  
                 Absence d'un second système de navigation (moteur de recherche, plan du site)
               criterion: 12.1
-              delivery: Majeur 
+              delivery: Majeur
             - name: Liens d'évitement
-              description: |
+              description: |  
                 Absence de liens d'évitement
                 [Voir comment faire sur Accede-web](https://www.accede-web.com/notices/html-et-css/navigation-au-clavier/mettre-en-place-un-lien-devitement/)
               criterion: 12.7
-              delivery: Majeur 
+              delivery: Majeur
         - name: Entête de la page
           errors:
             - name: Pertinence des alternatives textuelles des images
-              description: |
+              description: |  
                 Décrire le contenu de l'image "Études en France"  
                 Supprimer le terme "logo"
               criterion: 1.3
@@ -30,7 +30,7 @@
             - name: Intitulé de lien
               description: |
                 Dans le bloc `<div class="fr-header__service">`, le lien de retour à l'accueil doit être plus explicite : "Accueil - Études en France"
-                
+
                 **Recommandation**  
                 Il y a 2 possibilités : soit vous implémentez les logos dans ce bloc, soit vous ajoutez un contenu caché reprenant le texte écrit sur les images. (utiliser la class `.sr-only` - voir sur https://www.ffoodd.fr/cache-cache-css/)
               criterion: 6.2
@@ -41,7 +41,7 @@
               path:
               description: |  
                 Le bouton "je me connecte" a une icône (pictogramme bonhomme) susceptible d'être restituée par les lecteurs d'écran.  
-                
+
                 **Recommandation** :
                 Passer l'icône dans un élément html et lui attribuer un attribut `aria-hidden="true"` 
                 Pour les icônes qui sont en `:before` ou `:after`, les placer dans un élément html et ajouter l'attribut `aria-hidden="true"`
@@ -59,7 +59,7 @@
               description: |
                 Le terme "logo" n'est pas utile à la compréhension des logos.  
                 Il faut décrire le contenu de l'image.  
-                
+
                 **Exemples** :  
                 "Logo de la Conférence des Directeurs des Écoles Françaises d'Ingénieurs" -> 
                 "cdefi - Conférence des Directeurs des Écoles Françaises d'Ingénieurs"  
@@ -86,8 +86,8 @@
             - name: Images
               description: | 
                 Les images de décoration de la page d'accueil peuvent être restituées par les lecteurs d'écran.  
-                
-                **Recommandation** : 
+
+                **Recommandation** :  
                 Effacer le contenu de l'attribut `alt` pour :  
                   - Student-University
                   - Etudiante
@@ -108,7 +108,7 @@
             - name: Intitulés de lien
               description: |  
                 L'attribut `title` ne reprend pas l'intitulé exact du lien.
-                
+
                 **Recommandation** :  
                 L'attribut `title` doit reprendre l'intitulé exact du lien avec des informations complémentaires permettant de comprendre le texte du lien.  
               criterion: 6.1
@@ -126,9 +126,9 @@
           errors:
             - name: Intitulés de lien
               description: |  
-                Le lien "Je m'inscris" n'est pas explicite.    
+                Le lien "Je m'inscris" n'est pas explicite.  
                 Ajouter un attribut `title` avec l'intitulé suivant :  "Je m'inscris à la plate-forme Études en France"  
-                
+
                 L'attribut `title` du bouton "Fermer" n'est pas explicite.  
                 Modifier l'attribut `title` avec "Fermer la fenêtre modale"  
 
@@ -162,7 +162,7 @@
             - name: Contrôle de saisie
               description: |  
                 Indiquer le format attendu de l'identifiant (email ? par exemple)
-                  
+
                 **Attention** si les champs ne sont pas correctement remplis on tombe sur une page 403.  
               criterion: 11.11
               delivery: Majeur
@@ -172,3 +172,86 @@
                 [Voir les valeurs autorisées ici](https://www.numerique.gouv.fr/publications/rgaa-accessibilite/methode-rgaa/glossaire/#liste-des-valeurs-possibles-pour-l-attribut-autocomplete)
               criterion: 11.13
               delivery: Majeur
+    - name: Accueil (connecté)
+      blocks:
+        - name: Page
+          errors:
+            - name: Validité du code généré
+              description: | 
+                Vérifier en priorité les points suivants et ne pas traiter les warning :  
+                - Balises, attributs et valeurs d’attributs respectent les règles d’écriture  
+                - Imbrication des balises conforme  
+                - Ouverture et fermeture balises conformes  
+                - Valeurs d’attributs avec ID uniques dans page  
+                - Présence d’attributs doublés sur un même élément
+              criterion: 8.2
+              delivery: Majeur
+            - name:  Titre de page
+              description: |
+                  Le titre n'est pas explicite. Il faut indiquer le nom du site. Ici "Accueil - Etudes en France" 
+              criterion: 8.6
+              delivery: Majeur
+        - name: Contenu
+          errors:
+            - name: Contrastes de couleur
+              description: | 
+                La couleur rouge du "message d'alerte"/"bienvenue sur l'application" n'est pas assez contrastée (ratio de 4.1 au lieu de 4.5)   
+                La couleur orange du message de définition du lieu de rendez-vous n'est pas assez contrastée (ratio de 1.97 au lieu de 4.5)
+              criterion: 3.2
+              delivery: Majeur
+            - name: Fil d'ariane
+              description: |
+                Il n'a pas lieu d'être présent sur la page d'accueil.  
+                Vous pouvez rajouter un lien dans le menu avec l'intitulé suivant "Accueil" avant les autres items de la navigation.  
+                Et en étant sur la page d'accueil, vous pourriez ajouter l'attribut `aria-current="true"` sur ce lien pour bien préciser que nous sommes sur cette page.
+              criterion: 6.1
+              delivery: Notes annexes
+            - name: Bouton je donne mon avis
+              description: |
+                Est-ce qu'il serait pas pertinent de placer ce bouton à la fin de la démarche ?
+              criterion: 6.1
+              delivery: Notes annexes
+            - name: Logo Je donne mon avis
+              description: |
+                Supprimer l'attribut `title`, l'alternative textuelle fait office d'intitulé
+              criterion: 6.1
+              delivery: Mineur
+            - name: Usage d'éléments à des fins de présentation
+              description: | 
+                Usage de <br><br> non autorisés  
+                Présence d'éléments `<p>` vides pour simuler des espaces
+
+                *Recommandation** : 
+                Il faut utiliser les élements HTML de présentation `<p>` et la mise en forme en CSS.  
+                Supprimer les éléments vides et non autorisés.
+
+              criterion: 8.9
+              delivery: Mineur
+            - name: Structure de l'information
+              description: | 
+                La hiérarchie des titres n'est pas pertinente.  
+                Ajouter un titre Pied de page caché si besoin (utiliser la class `.sr-only` - voir sur https://www.ffoodd.fr/cache-cache-css/)
+              criterion: 9.1
+              delivery: Majeur
+        -
+    - name: Je suis candidat (connecté)
+      blocks:
+        - name: Page
+          errors:
+            - name: 
+              description: 
+              criterion: 
+              delivery: Majeur / Bloquant / Mineur
+        - name: Contenu
+          errors:
+            - name: Images
+              description: |  
+
+              criterion: 1.2 
+              delivery: Majeur / Bloquant
+        - name: Modale / Navigation
+          errors:
+            - name: 
+              description:
+              criterion: 
+              delivery: Majeur / Bloquant / Mineur
