@@ -15,7 +15,7 @@
               delivery: Majeur
             - name: Liens d'évitement
               description: |  
-                Absence de liens d'évitement
+                Absence de liens d'évitement  
                 [Voir comment faire sur Accede-web](https://www.accede-web.com/notices/html-et-css/navigation-au-clavier/mettre-en-place-un-lien-devitement/)
               criterion: 12.7
               delivery: Majeur
@@ -42,7 +42,7 @@
               description: |  
                 Le bouton "je me connecte" a une icône (pictogramme bonhomme) susceptible d'être restituée par les lecteurs d'écran.  
 
-                **Recommandation** :
+                **Recommandation** :  
                 Passer l'icône dans un élément html et lui attribuer un attribut `aria-hidden="true"` 
                 Pour les icônes qui sont en `:before` ou `:after`, les placer dans un élément html et ajouter l'attribut `aria-hidden="true"`
               criterion: 7.1
@@ -52,7 +52,7 @@
               description: | 
                 L'intitulé du bouton devrait être plus explicite : "Menu de navigation"
               criterion: 7.1
-              delivery: Majeur
+              delivery: Mineur
         - name: Pied de la page
           errors:
             - name: Pertinence des alternatives textuelles des images
@@ -100,7 +100,10 @@
               delivery: Mineur
             - name: Structure de l'information
               description: | 
-                La hiérarchie des titres ne correspond pas au contenu de la page
+                La hiérarchie des titres ne correspond pas au contenu de la page.  
+                Passer le titre de niveau 4 en niveau 2.  
+                `<h2> Vous recherchez une formation ?</h2>`  
+                Ajouter un titre <h2>Pied de page</h2> caché si besoin (utiliser la class `.sr-only` - voir sur https://www.ffoodd.fr/cache-cache-css/) avant le <h4> qui est présent dans le footer.
               criterion: 9.2
               delivery: Majeur
         - name: Navigation (desktop et mobile)
@@ -140,7 +143,7 @@
                 Les icônes CSS peuvent être restituées par les lecteurs d'écran.  
 
                 **Recommandation** :  
-                Ajouter un attribut aria-hidden="true" à l'icône (qui ne s'affiche pas) <i class="fa fa-pencil"></i> sur le lien "Je m'inscris"
+                Ajouter un attribut `aria-hidden="true"` à l'icône (qui ne s'affiche pas) `<i class="fa fa-pencil"></i>` sur le lien "Je m'inscris"
 
               criterion: 6.1
               delivery: Majeur
@@ -191,6 +194,15 @@
                   Le titre n'est pas explicite. Il faut indiquer le nom du site. Ici "Accueil - Etudes en France" 
               criterion: 8.6
               delivery: Majeur
+            - name: Contrôle du temps  
+              description: |  
+                L'utilisateur n'a pas de moyen de maintenir sa connexion ou de se déconnecter.  
+                Déconnexion au bout de 30 minutes. 
+
+                **Recommandation** :  
+                Afficher une modale quand le temps est écoulé et demander à l'utilisateur s'il souhaite maintenir sa connexion ou se déconnecter.
+              criterion: 13.1 
+              delivery: Bloquant
         - name: Contenu
           errors:
             - name: Contrastes de couleur
@@ -218,10 +230,10 @@
               delivery: Mineur
             - name: Usage d'éléments à des fins de présentation
               description: | 
-                Usage de <br><br> non autorisés  
+                Usage d'éléments `<br><br>` non autorisés  
                 Présence d'éléments `<p>` vides pour simuler des espaces
 
-                *Recommandation** : 
+                **Recommandation** : 
                 Il faut utiliser les élements HTML de présentation `<p>` et la mise en forme en CSS.  
                 Supprimer les éléments vides et non autorisés.
 
@@ -230,28 +242,73 @@
             - name: Structure de l'information
               description: | 
                 La hiérarchie des titres n'est pas pertinente.  
-                Ajouter un titre Pied de page caché si besoin (utiliser la class `.sr-only` - voir sur https://www.ffoodd.fr/cache-cache-css/)
+                Ajouter un titre "Pied de page" caché si besoin (utiliser la class `.sr-only` - voir sur https://www.ffoodd.fr/cache-cache-css/)
               criterion: 9.1
               delivery: Majeur
-        -
+            - name: Bloc `#infosBandeau`
+              description: |  
+                Le lien de déconnexion contient une icône qui doit être implémentée dans un élément HTML avec un attribut 'aria-hidden="true"' car cette icône peut être restituée par les lecteurs d'écran.
+              criterion: 6.1
+              delivery: Majeur
+            - name: Liens explicites 
+              description: |  
+                L'intitulé du lien de la langue n'est pas explicite, le rendre plus explicite en ajoutant un intitulé dans l'attribut `title`
+              criterion: 6.1 
+              delivery: Majeur
+            - name: Présentation de l'information 
+              description: |
+                L'usage d'attribut `align`est interdit. Utiliser la mise en forme en CSS.
+              criterion: 10.1 
+              delivery: Majeur
+            - name: Landmarks 
+              description: |  
+                Ajouter `role="main"` sur `<div id="main">`
+              criterion: 12.6 
+              delivery: Majeur
     - name: Je suis candidat (connecté)
       blocks:
         - name: Page
           errors:
-            - name: 
-              description: 
-              criterion: 
-              delivery: Majeur / Bloquant / Mineur
+            - name: Type de document 
+              description: |  
+                **Attention** : la déclaration du doctype n'est pas la même que la page d'accueil (non connectée)
+              criterion: 8.1 
+              delivery: Notes annexes
+            - name: Code invalide 
+              description: |  
+                Présence d'`id` dupliqués (dans les différents tableaux, par exemple : formation)
+              criterion: 8.2 
+              delivery: Majeur
+            - name: Titres de pages 
+              description: |  
+                Le titre de la page n'est pas explicite.  
+                Il faut indiquer le nom du site : "Je suis candidat - Études en France"
+              criterion: 8.6 
+              delivery: Majeur
         - name: Contenu
           errors:
-            - name: Images
+            - name: Contrastes de couleur sur le texte 
               description: |  
+                Le terme "procédure parallèle" n'est pas assez contrasté. (ratio de 1.97 au lieu de 3)  
+                Utiliser [le composant 'tags' du DSFR](https://gouvfr.atlassian.net/wiki/spaces/DB/pages/217186370/Couleurs+-+palette+-+Color)  
+                Les termes seront mis en avant et seront assez contrastés.
+              criterion: 3.2 
+              delivery: Majeur
+            - name: Scripts - Modale "Voir les détails"  
+              description: |  
+                Le lien "Voir les détails" se comporte comme un bouton mais est un lien, qui appelle une modale. 
+                Se référer au modèle fourni par le [DSFR](https://gouvfr.atlassian.net/wiki/spaces/DB/pages/476610770/Modale+-+Modal)
 
-              criterion: 1.2 
-              delivery: Majeur / Bloquant
-        - name: Modale / Navigation
-          errors:
-            - name: 
-              description:
-              criterion: 
-              delivery: Majeur / Bloquant / Mineur
+                Absence de titre sur la modale  
+                Changer l'élément `<div>` qui encadre le titre de la modale avec un élément `<Hn>` (n correspond au niveau de titre)  
+                **Recommandation** : 
+                `<h1 id="fr-modal-title-modal-1" class="jsoverlay-header jsoverlay-header-move">Détails d'une acceptation électronique</h1>`  
+                où l'id="fr-modal-titre-modal-1" sera répercuté dans un aria-labelledby qui reprendra la valeur de l'id présent dans l'élément `<h1>` dans la déclaration de la modale.  
+                `<dialog aria-labelledby="fr-modal-title-modal-1" role="dialog" id="fr-modal-1" class="fr-modal">`
+
+                Le bouton "Fermer" n'est pas explicite.  
+                **Recommandation** : Compléter l'intitulé du bouton "Fermer" avec l'attribut `title` avec "Fermer la fenêtre modale".
+                  `<a id="cancelButton" class="fr-link--close fr-link cancelButton" aria-controls="fr-modal-1" href="#" title="**Fermer la fenêtre modale**">Fermer</a>`
+              criterion: 7.1 
+              delivery: Bloquant
+
